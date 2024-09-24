@@ -1,30 +1,8 @@
 import {React, useState} from 'react'
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import { DatePicker } from '@mui/x-date-pickers';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import Button from '@mui/material/Button';
-import { styled } from '@mui/material/styles';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import dayjs from 'dayjs';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import CancelIcon from '@mui/icons-material/Cancel';
+import check from './check.png'
+import cancel from './Cancel.png'
 
 export default function Add() {
-  const VisuallyHiddenInput = styled('input')({
-    clip: 'rect(0 0 0 0)',
-    clipPath: 'inset(50%)',
-    height: 1,
-    overflow: 'hidden',
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    whiteSpace: 'nowrap',
-    width: 1,
-  });
 
   const [data, setData] = useState({
     tname : '',
@@ -32,7 +10,7 @@ export default function Add() {
     tcatg: '',
     tstat: '',
     tsub:'',
-    tdead : new Date(),
+    tdead : new Date().toISOString().split('T')[0],
     tfile : ''
   });
 
@@ -52,11 +30,14 @@ export default function Add() {
       setData(alldata)
   }
 
-  const handleDate = (e)=>{
-    const alldata = {...data};
-    alldata['tdead'] = e['$d'].toDateString()
-    setData(alldata)
-  }
+  const handleDate = (date) => {
+
+    const newdate = new Date(date).toISOString().split('T')[0];
+    const alldata = { ...data };
+    alldata['tdead'] = newdate;
+    setData(alldata);
+  };
+  
 
   const handleSubmit = ()=>{
     const {tname, tdesc, tcatg,tstat, tsub, tdead, tfile}  = data;
@@ -72,7 +53,7 @@ export default function Add() {
       tcatg: '',
       tstat: '',
       tsub:'',
-      tdead : new Date(),
+      tdead :  new Date().toISOString().split('T')[0],
       tfile : ''
     });
   }
@@ -87,12 +68,17 @@ export default function Add() {
             Add Task
         </p>
         <div className='flex flex-row gap-5 p-3 justify-center pr-9'>
-          <Button variant="outlined" color='success' style={{border: '2px solid'}}  startIcon={<CheckCircleIcon />} onClick={handleSubmit}>
-            Confirm
-          </Button>
-          <Button variant="outlined" color='error' style={{border: '2px solid'}} startIcon={<CancelIcon />} onClick={handleDiscard}>
-            Discard
-          </Button>
+
+          <div className='cursor-pointer flex flex-column gap-2 justify-between items-center bg-primary text-success border-2 hover:bg-success-hv border-success py-2 px-4 rounded' onClick={handleSubmit}> 
+            <img src={check} className=' w-6 h-6'></img>
+            <div>Confirm</div>
+          </div> 
+
+          <div className='cursor-pointer flex flex-column gap-2 justify-between items-center bg-primary text-discard border-2 hover:bg-discard-hv border-discard py-2 px-4 rounded' onClick={handleDiscard}> 
+            <img src={cancel} className=' w-6 h-6'></img>
+            <div>Cancel</div>
+          </div> 
+
         </div>
       </div>
 
@@ -112,59 +98,44 @@ export default function Add() {
 
             <div className='flex flex-row w-[50%] gap-7'>
               <p className='text-center self-center text-[20px] w-[25%] font-medium '>Task Category</p>
-                <FormControl className='w-full'>
-                <InputLabel id="catg">Category</InputLabel>
-                <Select labelId="catg" id="catg" value={data.tcatg} name='tcatg'  onChange={handleChange} label="Category">
-                  <MenuItem value={'web'}>Web</MenuItem>
-                  <MenuItem value={'app'}>App</MenuItem>
-                  <MenuItem value={'docx'}>Document / Text</MenuItem>
-                </Select>
-              </FormControl>
+              <select className='bg-form-input w-full p-4 border-none rounded-xl' name='tcatg' value={data.tcatg} onChange={handleChange}>
+                <option value=''>Select Category</option>
+                <option value='web'>Web</option>
+                <option value='app'>App</option>
+                <option value='docx'>Document / Text</option>
+              </select>
             </div>
 
             <div className='flex flex-row w-[50%] gap-7'>
               <p className='text-center self-center text-[20px] w-[25%] font-medium '>Task Status</p>
-                <FormControl className='w-full'>
-                <InputLabel id="catg">Status</InputLabel>
-                <Select labelId="catg" value={data.tstat} name='tstat' onChange={handleChange} id="catg" label="Status">
-                  <MenuItem value={'active'}>Active</MenuItem>
-                  <MenuItem value={'suspended'}>Suspended</MenuItem>
-                </Select>
-              </FormControl>
+              <select className='bg-form-input w-full p-4 border-none rounded-xl' name='tstat' value={data.tstat} onChange={handleChange}>
+                <option value=''>Select Status</option>
+                <option value='active'>Active</option>
+                <option value='suspended'>Suspended</option>
+              </select>
             </div>
 
           </div>
 
           <div className='flex flex-row gap-7 p-5 w-[50%]'>
               <p className='text-center self-center text-[20px] w-[25%] font-medium '>Submission Category</p>
-                <FormControl className='w-full'>
-                <InputLabel id="catg">Submission</InputLabel>
-                <Select labelId="catg" id="catg" value={data.tsub} name='tsub' onChange={handleChange} label="Submission">
-                  <MenuItem value={'pdf'}>Pdf</MenuItem>
-                  <MenuItem value={'img'}>Image</MenuItem>
-                  <MenuItem value={'link'}>Url</MenuItem>
-                </Select>
-              </FormControl>
+              <select className='bg-form-input w-full p-4 border-none rounded-xl' name='tsub' value={data.tsub} onChange={handleChange}>
+                <option value=''>Select Submission Type</option>
+                <option value='pdf'>PDF</option>
+                <option value='img'>Image</option>
+                <option value='link'>URL</option>
+              </select>
           </div>
 
 
           <div className='flex flex-row gap-8 p-5 w-[50%]'>
-              <p className='text-center self-center text-[20px] w-[25%] font-medium '>Add a deadline</p>            
-              <FormControl className='w-full'>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DatePicker value={dayjs(data.tdead)}  onChange={handleDate} label="Pick a date" />
-                </LocalizationProvider>
-              </FormControl>
+              <p className='text-center self-center text-[20px] w-[25%] font-medium '>Add a deadline</p> 
+              <input type="date" className='bg-form-input w-[100%] p-4 border-none rounded-xl text-[16px]' value={data.tdead} onChange={(e) => handleDate(e.target.value)} />
           </div>
 
           <div className='flex flex-row gap-8 p-5 w-[50%]'>
               <p className='text-center self-center text-[20px] w-[20%] font-medium '>Add an Example</p>            
-              <FormControl className='self-center'>         
-                  <Button component="label"  variant="contained"  name='tfile' startIcon={<CloudUploadIcon />} onChange={handleFile} >
-                    Upload Image
-                  <VisuallyHiddenInput  type="file"  />
-                  </Button>
-              </FormControl>
+              <input id='file' type='file' className='self-center' name='tfile' onChange={handleFile} />
           </div>
 
         </div>
