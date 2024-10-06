@@ -3,8 +3,10 @@
 @tailwind utilities;
 
 body{
-    background-color: white;
+    background-color: #ECECEC;
+    box-sizing: border-box;
 }
+
 
 input[type="file"]::file-selector-button {
     background-color: #f73558;

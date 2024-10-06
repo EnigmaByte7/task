@@ -13,7 +13,11 @@ module.exports = {
        'discard' : '#d32f2f',
        'discard-hv' : '#f3c8c8',
        'success-hv' : '#afe1b1',
-       'primary' :'#A974FF'
+       'primary' :'#A974FF',
+       'gray' : '#E3E3E3'
+      },
+      gridTemplateColumns:{
+        'card' : '30% 70%'
       }
     },
   },

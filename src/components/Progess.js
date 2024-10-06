@@ -9,7 +9,7 @@ export default function Progess({setting}) {
         <div className={`w-14 h-14 border-[5px]  flex items-center justify-center rounded-full bg-white ${c1 === 0 ? 'border-bg-primary' : 'border-primary'}`}>
           <div className='font-semibold text-lg'>1</div>
         </div>
-        <div className='w-10 h-14 flex items-center justify-center'>
+        <div className='w-10 outline-2 h-14 flex items-center justify-center'>
           <div className={`w-full h-1 ${h1 === 0 ? 'bg-bg-primary' : 'bg-primary'}`}></div>
         </div>        
         <div className={`w-14 h-14 border-[5px]  flex items-center justify-center rounded-full bg-white ${c2 === 0 ? 'border-bg-primary' : 'border-primary'}`}>
