@@ -1,6 +1,6 @@
 import React from "react";
-import logo from '../logo.png'
-import load from '../win.gif'
+import logo from '../assets/logo.png'
+import load from '../assets/win.gif'
 
 const Loading = ()=>{
     return (

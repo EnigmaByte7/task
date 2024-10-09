@@ -1,6 +1,6 @@
 import {React, useState} from 'react'
-import out from '../Star.png';
-import fill from '../filled.png'
+import out from '../assets/Star.png';
+import fill from '../assets/filled.png'
 
 const Rating = ({handleRating})=>{
     const [rating, setRating] = useState(-1);

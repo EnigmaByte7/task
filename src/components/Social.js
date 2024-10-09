@@ -1,6 +1,6 @@
-import Linkedin from '../LinkedIn.png'
-import Twitter from '../Twitter.png'
-import Instagram from '../Instagram.png'
+import Linkedin from '../assets/LinkedIn.png'
+import Twitter from '../assets/Twitter.png'
+import Instagram from '../assets/Instagram.png'
 
 const Social = ()=>{
     return (
